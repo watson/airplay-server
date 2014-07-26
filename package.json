@@ -1,0 +1,30 @@
+{
+  "name": "airplay-server",
+  "version": "0.0.0",
+  "description": "An AirPlay server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "airplay",
+    "server"
+  ],
+  "author": "Thomas Watson Steen <w@tson.dk>",
+  "license": "MIT",
+  "dependencies": {
+    "getmac": "^1.0.6",
+    "mdns": "^2.2.0"
+  },
+  "devDependencies": {
+    "debug": "^1.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/watson/airplay-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/watson/airplay-server/issues"
+  },
+  "homepage": "https://github.com/watson/airplay-server"
+}
