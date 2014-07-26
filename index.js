@@ -5,11 +5,31 @@ var mdns = require('mdns');
 var getmac = require('getmac');
 var debug = require('debug')('airplay');
 
-var airplay = module.exports = function (onRequest) {
+var pkg = require('./package.json');
+
+var airplay = module.exports = function (name, options, onRequest) {
+  if (typeof name === 'object') {
+    options = name;
+    name = undefined;
+  } else if (typeof name === 'function') {
+    onRequest = name;
+    name = undefined;
+  } else if (typeof options === 'function') {
+    onRequest = options;
+    options = undefined;
+  }
+  if (!options) options = {};
+  if (!options.name) options.name = name || 'Node.js';
+  if (!options.features) options.features = allFeatures;
+
+  airplay.options = options;
+
   var server = http.createServer(onRequest);
+
   server.on('listening', function () {
     start(server.address().port);
   });
+
   return server;
 };
 
@@ -28,23 +48,27 @@ var features = airplay.features = {
   PHOTO_CACHING: 2048         // photo preloading supported
 };
 
+var allFeatures = Object.keys(features)
+  .reduce(function (a, b) {
+    return features[a] | features[b];
+  });
+
 var start = function (port) {
   debug('Getting server MAC address');
   getmac.getMac(function (err, mac) {
     if (err) throw err;
 
-    var featureMask = '0x' + Object.keys(features).reduce(function (a, b) { return features[a] | features[b]; }).toString(16);
+    var featureMask = '0x' + airplay.options.features.toString(16);
+    var model = 'NodeAirPlay' + pkg.version.split('.').slice(0,-1).join(',');
+
     var options = {
-      name: 'Node.js',
+      name: airplay.options.name,
       txtRecord: {
-        deviceid: mac.toUpperCase(),
-        features: '0x100029ff',
-        vv: '1',
-        rhd: '1.06.5',
-        pw: '0',
-        srcvers: '150.33',
-        rmodel: 'MacBookAir4,2',
-        model: 'AppleTV3,1'
+        deviceid: mac.toUpperCase(), // MAC address of the device
+        features: featureMask,       // bitfield of supported features
+        model: model,                // device model
+        pw: '0',                     // server is password protected
+        srcvers: pkg.version         // server version
       }
     };
 
