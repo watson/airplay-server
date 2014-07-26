@@ -22,14 +22,34 @@ var airplay = module.exports = function (name, options, onRequest) {
   if (!options.name) options.name = name || 'Node.js';
   if (!options.features) options.features = allFeatures;
 
-  airplay.options = options;
+  var start = function () {
+    debug('Getting server MAC address');
+    getmac.getMac(function (err, mac) {
+      if (err) throw err;
+
+      var port = server.address().port;
+      var featureMask = '0x' + options.features.toString(16);
+      var model = 'NodeAirPlay' + pkg.version.split('.').slice(0,-1).join(',');
+
+      var mdnsOpt = {
+        name: options.name,
+        txtRecord: {
+          deviceid: mac.toUpperCase(), // MAC address of the device
+          features: featureMask,       // bitfield of supported features
+          model: model,                // device model
+          pw: '0',                     // server is password protected
+          srcvers: pkg.version         // server version
+        }
+      };
+
+      debug('Starting server with name %s...', options.name);
+      var ad = mdns.createAdvertisement(mdns.tcp('airplay'), port, mdnsOpt);
+      ad.start();
+    });
+  };
 
   var server = http.createServer(onRequest);
-
-  server.on('listening', function () {
-    start(server.address().port);
-  });
-
+  server.on('listening', start);
   return server;
 };
 
@@ -52,28 +72,3 @@ var allFeatures = Object.keys(features)
   .reduce(function (a, b) {
     return features[a] | features[b];
   });
-
-var start = function (port) {
-  debug('Getting server MAC address');
-  getmac.getMac(function (err, mac) {
-    if (err) throw err;
-
-    var featureMask = '0x' + airplay.options.features.toString(16);
-    var model = 'NodeAirPlay' + pkg.version.split('.').slice(0,-1).join(',');
-
-    var options = {
-      name: airplay.options.name,
-      txtRecord: {
-        deviceid: mac.toUpperCase(), // MAC address of the device
-        features: featureMask,       // bitfield of supported features
-        model: model,                // device model
-        pw: '0',                     // server is password protected
-        srcvers: pkg.version         // server version
-      }
-    };
-
-    debug('Starting server with name %s...', options.name);
-    var ad = mdns.createAdvertisement(mdns.tcp('airplay'), parseInt(port, 10), options);
-    ad.start();
-  });
-};
