@@ -5,7 +5,7 @@ var mdns = require('mdns');
 var getmac = require('getmac');
 var debug = require('debug')('airplay');
 
-module.exports = function (onRequest) {
+var airplay = module.exports = function (onRequest) {
   var server = http.createServer(onRequest);
   server.on('listening', function () {
     start(server.address().port);
@@ -13,7 +13,7 @@ module.exports = function (onRequest) {
   return server;
 };
 
-var features = {
+var features = airplay.features = {
   VIDEO: 0,                   // video support
   PHOTO: 1,                   // photo support
   VIDEO_FAIR_PLAY: 2,         // video protected with FairPlay DRM
