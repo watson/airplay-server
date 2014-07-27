@@ -18,9 +18,9 @@ var airplay = module.exports = function (name, options, onRequest) {
     onRequest = options;
     options = undefined;
   }
+  if (!name) name = 'Node.js';
   if (!options) options = {};
-  if (!options.name) options.name = name || 'Node.js';
-  if (!options.features) options.features = allFeatures;
+  if (!options.features) options.features = normalFeatures;
 
   var start = function () {
     debug('Getting server MAC address');
@@ -30,21 +30,20 @@ var airplay = module.exports = function (name, options, onRequest) {
       var port = server.address().port;
       var featureMask = '0x' + options.features.toString(16);
       var model = 'NodeAirPlay' + pkg.version.split('.').slice(0,-1).join(',');
-
-      var mdnsOpt = {
-        name: options.name,
-        txtRecord: {
-          deviceid: mac.toUpperCase(), // MAC address of the device
-          features: featureMask,       // bitfield of supported features
-          model: model,                // device model
-          pw: '0',                     // server is password protected
-          srcvers: pkg.version         // server version
-        }
+      var txt = options.txt || {
+        deviceid: mac.toUpperCase(), // MAC address
+        features: featureMask,       // supported features
+        model: model,                // device model
+        srcvers: pkg.version,        // server version
       };
 
-      debug('Starting server with name %s...', options.name);
-      var ad = mdns.createAdvertisement(mdns.tcp('airplay'), port, mdnsOpt);
-      ad.start();
+      debug('Starting server with name %s...', name);
+      mdns
+        .createAdvertisement(mdns.tcp('airplay'), port, {
+          name: name,
+          txtRecord: txt
+        })
+        .start();
     });
   };
 
@@ -73,3 +72,5 @@ var allFeatures = Object.keys(features)
   .reduce(function (a, b) {
     return features[a] | features[b];
   });
+
+var normalFeatures = parseInt('11100111110111'.toString(10), 10);

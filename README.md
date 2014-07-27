@@ -42,6 +42,7 @@ Constructor arguments:
 Options:
 
 - `features` - A features bit-mask (default: all features)
+- `txt` - object used to replace stock TXT record
 
 ### Server
 
