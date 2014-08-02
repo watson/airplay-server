@@ -1,6 +1,25 @@
 # airplay-server
 
-An AirPlay server
+An extendable and thin AirPlay server.
+
+This module is a thin AirPlay server that you can use to easily
+implement your own AirPlay functionality. By it self it doesn't do
+anything else than expose it self on the network as an AirPlay server.
+All requests to the server is sent to listeners that you attach to the
+airplay server by listening for the "request" event.
+
+You can see a very simpel implemenation example under
+[examples/server.js](examples/server.js).
+
+I'm currently working on a more full fleshed and usable AirPlay server
+implementation in the [AirServer
+project](https://github.com/watson/airserver), but it's currently a work
+in progress.
+
+Please note that some AirPlay clients expects a RAOP server (AirTunes)
+to be running on the network with the same name as the AirPlay server.
+In case you need a RAOP server, please consider the [raop-server
+project](https://github.com/watson/raop-server).
 
 ## Installation
 
