@@ -8,16 +8,9 @@ var debug = require('debug')('airplay');
 var pkg = require('./package.json');
 
 var airplay = module.exports = function (name, options, onRequest) {
-  if (typeof name === 'object') {
-    options = name;
-    name = undefined;
-  } else if (typeof name === 'function') {
-    onRequest = name;
-    name = undefined;
-  } else if (typeof options === 'function') {
-    onRequest = options;
-    options = undefined;
-  }
+  if (typeof name === 'object') return airplay(undefined, name, options);
+  if (typeof name === 'function') return airplay(undefined, undefined, name);
+  if (typeof options === 'function') return airplay(name, undefined, options);
   if (!name) name = 'Node.js';
   if (!options) options = {};
   if (!options.features) options.features = normalFeatures;
