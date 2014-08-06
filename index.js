@@ -28,7 +28,7 @@ var airplay = module.exports = function (name, options, onRequest) {
       if (err) throw err;
 
       var port = server.address().port;
-      var featureMask = '0x' + options.features.toString(16);
+      var featureMask = generateFeatureMask(options.features);
       var model = 'NodeAirPlay' + pkg.version.split('.').slice(0,-1).join(',');
       var txt = options.txt || {
         deviceid: mac.toUpperCase(), // MAC address
@@ -52,6 +52,14 @@ var airplay = module.exports = function (name, options, onRequest) {
   return server;
 };
 
+var generateFeatureMask = function (base10) {
+  var hex = base10.toString(16).toUpperCase();
+  var rest = hex.length % 8;
+  var groups = hex.slice(rest).match(/.{8}/g) || [];
+  if (rest) groups.unshift(hex.slice(0, rest));
+  return '0x' + groups.reverse().join(',0x');
+};
+
 var features = {
   VIDEO: 1,                    // video support
   PHOTO: 2,                    // photo support
@@ -73,4 +81,4 @@ var allFeatures = Object.keys(features)
     return features[a] | features[b];
   });
 
-var normalFeatures = parseInt('11100111110111'.toString(10), 10);
+var normalFeatures = parseInt('11100111110111', 2);
