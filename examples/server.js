@@ -1,13 +1,12 @@
 'use strict';
 
-var debug = require('debug')('airplay');
-var airplay = require('../')();
+var airplay = require('../');
 
-airplay.on('request', function (req, res) {
+var server = airplay('My AirPlay Server', function (req, res) {
   console.log(req.method, req.url);
-  debug(req.headers);
+  console.log(req.headers);
 });
 
-airplay.listen(function () {
-  debug('AirPlay server is now listening on port %d', airplay.address().port);
+server.listen(7000, function () {
+  console.log('AirPlay server is listening on port %d', server.address().port);
 });
