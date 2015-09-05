@@ -13,9 +13,9 @@
   "author": "Thomas Watson Steen <w@tson.dk> (https://twitter.com/wa7son)",
   "license": "MIT",
   "dependencies": {
+    "airplay-mdns-server": "^1.0.0",
     "debug": "^2.2.0",
-    "getmac": "^1.0.6",
-    "mdns": "^2.2.0"
+    "xtend": "^4.0.0"
   },
   "devDependencies": {},
   "repository": {
