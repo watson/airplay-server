@@ -1,6 +1,6 @@
 {
   "name": "airplay-server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "An AirPlay server",
   "main": "index.js",
   "scripts": {
@@ -27,5 +27,9 @@
   "bugs": {
     "url": "https://github.com/watson/airplay-server/issues"
   },
-  "homepage": "https://github.com/watson/airplay-server"
+  "homepage": "https://github.com/watson/airplay-server",
+  "coordinates": [
+    55.6928897,
+    12.547805
+  ]
 }
