@@ -33,13 +33,13 @@ npm install airplay-server
 ## Example usage
 
 ```javascript
-var airplay = require('airplay-server')('My AirPlay Server');
+var airplay = require('airplay-server')('My AirPlay Server')
 
 airplay.on('request', function (req, res) {
   // do your stuff
-});
+})
 
-airplay.listen(5000); // start server on port 5000
+airplay.listen(5000) // start server on port 5000
 ```
 
 ## API
@@ -52,7 +52,7 @@ call it. It takes the optional arguments `name`, `options` and
 `options` or only `name` and `onRequest` is ok:
 
 ```javascript
-require('airplay-server')(name, options, onRequest);
+require('airplay-server')(name, options, onRequest)
 ```
 
 Constructor arguments:
