@@ -21,6 +21,9 @@ to be running on the network with the same name as the AirPlay server.
 In case you need a RAOP server, please consider the [raop-server
 project](https://github.com/watson/raop-server).
 
+[![Build status](https://travis-ci.org/watson/airplay-server.svg?branch=master)](https://travis-ci.org/watson/airplay-server)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+
 ## Installation
 
 ```

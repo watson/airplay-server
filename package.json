@@ -4,7 +4,7 @@
   "description": "An AirPlay server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard"
   },
   "keywords": [
     "airplay",
@@ -17,7 +17,9 @@
     "debug": "^2.2.0",
     "xtend": "^4.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^5.2.1"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/watson/airplay-server.git"
