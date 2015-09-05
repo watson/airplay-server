@@ -13,12 +13,11 @@
   "author": "Thomas Watson Steen <w@tson.dk>",
   "license": "MIT",
   "dependencies": {
+    "debug": "^2.2.0",
     "getmac": "^1.0.6",
     "mdns": "^2.2.0"
   },
-  "devDependencies": {
-    "debug": "^1.0.4"
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/watson/airplay-server.git"
