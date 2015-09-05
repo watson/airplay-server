@@ -10,7 +10,7 @@
     "airplay",
     "server"
   ],
-  "author": "Thomas Watson Steen <w@tson.dk>",
+  "author": "Thomas Watson Steen <w@tson.dk> (https://twitter.com/wa7son)",
   "license": "MIT",
   "dependencies": {
     "debug": "^2.2.0",
