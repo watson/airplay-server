@@ -23,8 +23,9 @@ var airplay = module.exports = function (opts, onRequest) {
 
     opts = xtend({ name: 'Node.js', version: pkg.version, port: port }, opts)
 
-    mdns(opts, function (err) {
-      if (err) server.emit('error', err)
+    mdns(opts, function (err, txt) {
+      if (err) return server.emit('error', err)
+      server.emit('txt', txt)
     })
   })
 
