@@ -8,7 +8,7 @@ anything else than expose it self on the network as an AirPlay server.
 All requests to the server is sent to listeners that you attach to the
 airplay server by listening for the "request" event.
 
-You can see a very simpel implemenation example under
+You can see a very simple implemntation example under
 [examples/server.js](examples/server.js).
 
 I'm currently working on a more full fleshed and usable AirPlay server
