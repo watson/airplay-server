@@ -26,16 +26,16 @@ project](https://github.com/watson/raop-server).
 
 ## Installation
 
-```
-npm install airplay-server
+```console
+npm install airplay-server --save
 ```
 
 ## Example usage
 
-```javascript
-var airplay = require('airplay-server')('My AirPlay Server')
+```js
+const airplay = require('airplay-server')('My AirPlay Server')
 
-airplay.on('request', function (req, res) {
+airplay.on('request', (req, res) => {
   // do your stuff
 })
 
