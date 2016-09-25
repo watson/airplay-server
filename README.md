@@ -8,7 +8,7 @@ anything else than expose it self on the network as an AirPlay server.
 All requests to the server is sent to listeners that you attach to the
 airplay server by listening for the "request" event.
 
-You can see a very simpel implemenation example under
+You can see a very simple implementation example under
 [examples/server.js](examples/server.js).
 
 I'm currently working on a more full fleshed and usable AirPlay server
@@ -26,13 +26,13 @@ project](https://github.com/watson/raop-server).
 
 ## Installation
 
-```
-npm install airplay-server
+```console
+npm install airplay-server --save
 ```
 
 ## Example usage
 
-```javascript
+```js
 var airplay = require('airplay-server')('My AirPlay Server')
 
 airplay.on('request', function (req, res) {
